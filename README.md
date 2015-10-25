@@ -20,7 +20,7 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
 grunt.loadNpmTasks('grunt-request-upload');
 ```
 
-## The "http_upload" task
+## The "request_upload" task
 
 ### Overview
 In your project's Gruntfile, add a section named `request_upload` to the data object passed into `grunt.initConfig()`.
