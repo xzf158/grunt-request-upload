@@ -31,18 +31,13 @@ grunt.initConfig({
   request_upload: {
     your_target: {
       options: {
-			url: '<%= config.previewUrl %>',
-			headers: {
-				'x-access-token': '<%= config.token %>'
-			},
-			data: {
-				projectname: '<%= config.projectName %>',
-				date: grunt.template.today('mmdd')
-			},
-			zipfile: '<%= config.zipfile %>',
-			onComplete: function (data) {
-				grunt.log.writeln(data);
-			}
+			method: 'POST',
+			url: '',
+			headers: {},
+			data: {},			
+			onProgress: function (percent, uploaded, total) {},
+			onComplete: function (data) {},
+			src: ''
 		},
     },
   },
@@ -51,6 +46,12 @@ grunt.initConfig({
 ```
 
 ### Options
+
+#### options.method
+Type: `String` Default value: 'POST'
+Default value: `POST`
+
+The HTTP method to use to upload the file. Look in the API documentation you want to use, this is usually POST or PUT.
 
 #### options.url
 Type: `String`
@@ -72,13 +73,19 @@ DefaultValue: `{}`
 
 Headers to send along with your HTTP request. For example, a lot of API require the Authentication to be sent through the Headers.
 
+#### options.onProgress
+Type: `Function`
+DefaultValue: `function(percent, uploaded, total) {}`
+
+Callback used to uploaded progress.
+
 #### options.onComplete
 Type: `Function`
 DefaultValue: `function(data) {}`
 
 Callback used to process server's response. For example, when server returns id of uploaded file you need to process afterwards.
 
-#### zipfile
+#### src
 Type: `String`
 Default value: `''`
 

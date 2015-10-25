@@ -16,7 +16,7 @@ module.exports = function (grunt) {
 	grunt.registerMultiTask('request_upload', 'Upload files through POST/PUT HTTP request', function () {
 		// Merge task-specific and/or target-specific options with these defaults.
 		var options = this.options({
-			// method: 'POST',
+			method: 'POST',
 			url: '',
 			headers: {},
 			data: {},
@@ -32,23 +32,23 @@ module.exports = function (grunt) {
 		var baseRequest = request.defaults({
 			headers: options.headers
 		});
-
-		if (!grunt.file.exists(options.zipfile)) {
-			grunt.fail.warn('Source file "' + options.zipfile + '" not found.');
-			return false;
+		var uploadFunc = options.method == "PUT" ? baseRequest.put : baseRequest.post;
+		if (!grunt.file.exists(options.src)) {
+			return grunt.fail.fatal('Source file "' + options.src + '" not found.');
 		}
-		options.data.zipfile = fs.createReadStream(options.zipfile);
-		var totalSize = fs.statSync(options.zipfile).size;
-		var uploadRequest = baseRequest.post({
+		options.data.src = fs.createReadStream(options.src);
+		var totalSize = fs.statSync(options.src).size;
+		var uploadRequest = uploadFunc({
 			url: options.url,
 			formData: options.data
 		}, function (err, resp, body) {
 			if (err) {
-				return grunt.fail.warn('Error: ', err);;
+				return grunt.fail.fatal(err);;
 			}
 			clearTimeout(timeid);
 			if (resp.statusCode != 200) {
-				grunt.fail.warn('Error:' + body);
+				grunt.log.writeln("");
+				grunt.fail.fatal(body);
 			} else {
 				options.onComplete.apply(null, [body]);
 				done();
