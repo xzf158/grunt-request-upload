@@ -60,13 +60,15 @@ module.exports = function (grunt) {
 			width: 25,
 			total: 100
 		});
+		var lastPrecent = 0;
 		var timeid = setInterval(function () {
 			var cPercent = parseInt(uploadRequest.req.connection._bytesDispatched / totalSize * 100);
-			bar.tick(cPercent);
+			bar.tick(cPercent - lastPrecent);
 			if (bar.complete) {
 				clearTimeout(timeid);
 				grunt.log.writeln("Waiting...");
 			}
+			lastPrecent = cPercent;
 			options.onProgress.apply(null, [cPercent, uploadRequest.req.connection._bytesDispatched, totalSize]);
 		}, 200);
 	});
