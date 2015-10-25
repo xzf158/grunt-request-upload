@@ -16,8 +16,7 @@ module.exports = function (grunt) {
 	grunt.registerMultiTask('request_upload', 'Upload files through POST/PUT HTTP request', function () {
 		// Merge task-specific and/or target-specific options with these defaults.
 		var options = this.options({
-			projectName: 'Test',
-			method: 'POST',
+			// method: 'POST',
 			url: '',
 			headers: {},
 			data: {},
