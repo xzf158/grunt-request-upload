@@ -36,7 +36,7 @@ module.exports = function (grunt) {
 		if (!grunt.file.exists(options.src)) {
 			return grunt.fail.fatal('Source file "' + options.src + '" not found.');
 		}
-		options.data.src = fs.createReadStream(options.src);
+		options.data.file = fs.createReadStream(options.src);
 		var totalSize = fs.statSync(options.src).size;
 		var uploadRequest = uploadFunc({
 			url: options.url,
