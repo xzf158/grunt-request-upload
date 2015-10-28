@@ -45,5 +45,8 @@
 	"dependencies": {
 		"progress": "^1.1.8",
 		"request": "^2.65.0"
+	},
+	"scripts": {
+		"start": "node lemon-server.js"
 	}
 }

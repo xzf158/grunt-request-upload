@@ -54,7 +54,7 @@ module.exports = function (grunt) {
 				done();
 			}
 		});
-		var bar = new ProgressBar('Dispatched: [:bar] :percent :elapseds', {
+		var bar = new ProgressBar('Dispatched: [:bar] :percent :elapseds ' + (totalSize / 1024 / 1024).toFixed(2) + 'M', {
 			complete: '=',
 			incomplete: '-',
 			width: 25,
